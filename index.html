@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AgriSmart | Modern Agriculture Management</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <style>
+        :root {
+            --primary-color: #34C759;
+            --primary-dark: #30A14E;
+            --secondary-color: #007AFF;
+            --dark-color: #1D1D1F;
+            --light-color: #F5F5F7;
+            --gray-color: #86868B;
+            --border-radius: 12px;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-size: 16px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            background: linear-gradient(135deg, #f5f5f7 0%, #e8f5e9 100%);
+        }
+
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 20px;
+            color: var(--gray-color);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: var(--card-shadow);
+            transition: var(--transition);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(52, 199, 89, 0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .feature-icon i {
+            font-size: 24px;
+            color: var(--primary-color);
+        }
+
+        .feature-card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .feature-card p {
+            color: var(--gray-color);
+        }
+
+        /* Login Panel */
+        .login-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: var(--border-radius);
+            width: 100%;
+            max-width: 400px;
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .close-login {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray-color);
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+        }
+
+        .remember-me input {
+            margin-right: 5px;
+        }
+
+        .forgot-password {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        .g-recaptcha {
+            margin-bottom: 20px;
+        }
+
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            padding: 100px 0;
+        }
+
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-title h2 {
+            font-size: 32px;
+            font-weight: 700;
+        }
+
+        .dashboard-title p {
+            color: var(--gray-color);
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .dashboard-card {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .dashboard-card h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .dashboard-card h3 i {
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+
+        .crop-list {
+            list-style: none;
+        }
+
+        .crop-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .crop-list li:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .schedule-item:last-child {
+            border-bottom: none;
+        }
+
+        .schedule-time {
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-right: 15px;
+        }
+
+        .weather-card {
+            background: linear-gradient(135deg, #007AFF, #5856D6);
+            color: white;
+            border-radius: var(--border-radius);
+            padding: 25px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .weather-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .weather-temp {
+            font-size: 36px;
+            font-weight: 600;
+        }
+
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .weather-detail {
+            display: flex;
+            align-items: center;
+        }
+
+        .weather-detail i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark-color);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #86868B;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #333;
+            color: #86868B;
+            font-size: 14px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                padding: 15px 0;
+            }
+
+            .nav-links {
+                margin: 20px 0;
+            }
+
+            .nav-links li {
+                margin: 0 15px;
+            }
+
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 18px;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                margin-bottom: 10px;
+            }
+
+            .dashboard-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .dashboard-actions {
+                margin-top: 20px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <a href="#" class="logo">
+                    <i class="fas fa-seedling"></i>
+                    AgriSmart
+                </a>
+                <ul class="nav-links">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#pricing">Pricing</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <button class="btn btn-outline" id="loginBtn">Log In</button>
+                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Smart Agriculture Management for Modern Farmers</h1>
+            <p>Optimize your crop production with AI-powered insights, automated scheduling, and real-time monitoring for better yields and sustainable farming.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" id="getStartedBtn">Get Started</button>
+                <button class="btn btn-outline">Watch Demo</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful Features for Modern Agriculture</h2>
+                <p>Our platform combines cutting-edge technology with agricultural expertise to help you maximize your farm's potential.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <h3>Smart Irrigation</h3>
+                    <p>Automated watering schedules based on soil moisture, weather forecasts, and crop requirements.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI Insights</h3>
+                    <p>Get personalized recommendations for fertilization, pest control, and harvesting based on AI analysis.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-cloud-sun"></i>
+                    </div>
+                    <h3>Weather Integration</h3>
+                    <p>Real-time weather data and alerts to protect your crops from adverse conditions.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Crop Monitoring</h3>
+                    <p>Track growth stages, health indicators, and yield predictions for your crops.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bell"></i>
+                    </div>
+                    <h3>Alert System</h3>
+                    <p>Get notified about pests, diseases, watering needs, and optimal harvest times.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Mobile Responsive</h3>
+                    <p>Access your farm management dashboard from any device, anywhere.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Panel -->
+    <div class="login-panel" id="loginPanel">
+        <div class="login-container">
+            <button class="close-login" id="closeLogin">&times;</button>
+            <h2>Welcome Back</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                </div>
+                <div class="login-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                <div class="g-recaptcha" data-sitekey="6LefxhssAAAAAM29DqBN633Ig9825th3oKOEqx3R"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Log In</button>
+            </form>
+            <div style="text-align: center; margin-top: 20px;">
+                <p>Don't have an account? <a href="#" id="switchToSignup" style="color: var(--primary-color);">Sign up</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard (Hidden by default) -->
+    <section class="dashboard" id="dashboard">
+        <div class="container">
+            <div class="dashboard-header">
+                <div class="dashboard-title">
+                    <h2>My Farm Dashboard</h2>
+                    <p>Welcome back, John! Here's your farm overview.</p>
+                </div>
+                <div class="dashboard-actions">
+                    <button class="btn btn-primary" id="addCropBtn">
+                        <i class="fas fa-plus"></i> Add New Crop
+                    </button>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-seedling"></i> My Crops</h3>
+                    <ul class="crop-list">
+                        <li>
+                            <span>Corn Field A</span>
+                            <span>45 days</span>
+                        </li>
+                        <li>
+                            <span>Tomato Greenhouse</span>
+                            <span>22 days</span>
+                        </li>
+                        <li>
+                            <span>Wheat Field B</span>
+                            <span>68 days</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-tint"></i> Watering Schedule</h3>
+                    <div class="schedule-item">
+                        <div class="schedule-time">06:00 AM</div>
+                        <div>Tomato Greenhouse - Drip Irrigation</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">08:30 AM</div>
+                        <div>Corn Field A - Sprinkler System</div>
+                    </div>
+                    <div class="schedule-item">
+                        <div class="schedule-time">05:00 PM</div>
+                        <div>Wheat Field B - Sprinkler System</div>
+                    </div>
+                </div>
+
+                <div class="weather-card">
+                    <div class="weather-header">
+                        <h3><i class="fas fa-cloud-sun"></i> Weather Today</h3>
+                        <div class="weather-temp">24°C</div>
+                    </div>
+                    <p>Mostly sunny with a chance of light rain in the evening.</p>
+                    <div class="weather-details">
+                        <div class="weather-detail">
+                            <i class="fas fa-wind"></i>
+                            <span>12 km/h</span>
+                        </div>
+                        <div class="weather-detail">
+                            <i class="fas fa-tint"></i>
+                            <span>65% Humidity</span>
+                        </div>
+                        <div class="weather-detail">
+                            <i class="fas fa-sun"></i>
+                            <span>UV Index: 6</span>
+                        </div>
+                        <div class="weather-detail">
+                            <i class="fas fa-cloud-rain"></i>
+                            <span>30% Rain</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-robot"></i> AI Recommendations</h3>
+                    <p>Based on current conditions, we recommend:</p>
+                    <ul style="margin-top: 15px; padding-left: 20px;">
+                        <li>Increase watering for Tomato Greenhouse by 15%</li>
+                        <li>Apply organic fertilizer to Corn Field A in 3 days</li>
+                        <li>Monitor Wheat Field B for signs of rust fungus</li>
+                    </ul>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-bell"></i> Alerts & Warnings</h3>
+                    <div style="background: #FFF3CD; color: #856404; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        <strong>Weather Alert:</strong> Expected heavy rainfall in 48 hours. Consider delaying fertilization.
+                    </div>
+                    <div style="background: #F8D7DA; color: #721C24; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                        <strong>Pest Warning:</strong> Increased aphid activity detected in nearby farms. Monitor your crops.
+                    </div>
+                </div>
+
+                <div class="dashboard-card">
+                    <h3><i class="fas fa-chart-bar"></i> Yield Forecast</h3>
+                    <p>Based on current growth and conditions:</p>
+                    <ul style="margin-top: 15px;">
+                        <li>Corn Field A: Estimated 8.2 tons/acre</li>
+                        <li>Tomato Greenhouse: Estimated 12.5 kg/sq.m</li>
+                        <li>Wheat Field B: Estimated 6.7 tons/acre</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>AgriSmart</h3>
+                    <p>Transforming agriculture through technology and data-driven insights for sustainable farming.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Features</a></li>
+                        <li><a href="#">How It Works</a></li>
+                        <li><a href="#">Pricing</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Community</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-envelope"></i> info@agrismart.com</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Farm Tech Ave</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 AgriSmart. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script type="module">
+        // Firebase configuration and initialization
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAkZ1COLT59ukLGzpv5lW3UZ8vQ9tEN1gw",
+            authDomain: "hela-code.firebaseapp.com",
+            projectId: "hela-code",
+            storageBucket: "hela-code.firebasestorage.app",
+            messagingSenderId: "813299203715",
+            appId: "1:813299203715:web:910e7227cdd4a09ad1a5b6",
+            measurementId: "G-4GMK159PD5"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // API Configuration
+        const API_CONFIG = {
+            URL: 'https://endpoint.apilageai.lk/api/chat',
+            KEY: 'apk_uwNTUYF4MADr8MLSX0xzKgMFbW6i2Pfb',
+            MODEL: 'PRO'
+        };
+
+        // DOM Elements
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const getStartedBtn = document.getElementById('getStartedBtn');
+        const loginPanel = document.getElementById('loginPanel');
+        const closeLogin = document.getElementById('closeLogin');
+        const loginForm = document.getElementById('loginForm');
+        const dashboard = document.getElementById('dashboard');
+        const switchToSignup = document.getElementById('switchToSignup');
+        const addCropBtn = document.getElementById('addCropBtn');
+
+        // Event Listeners
+        loginBtn.addEventListener('click', () => {
+            loginPanel.style.display = 'flex';
+        });
+
+        signupBtn.addEventListener('click', () => {
+            loginPanel.style.display = 'flex';
+            document.querySelector('.login-container h2').textContent = 'Create Account';
+            document.querySelector('.login-container button[type="submit"]').textContent = 'Sign Up';
+            document.getElementById('switchToSignup').innerHTML = 'Already have an account? <a href="#" id="switchToLogin">Log in</a>';
+            
+            // Add event listener for the new switchToLogin link
+            document.getElementById('switchToLogin').addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelector('.login-container h2').textContent = 'Welcome Back';
+                document.querySelector('.login-container button[type="submit"]').textContent = 'Log In';
+                document.getElementById('switchToSignup').innerHTML = 'Don\'t have an account? <a href="#" id="switchToSignup">Sign up</a>';
+            });
+        });
+
+        getStartedBtn.addEventListener('click', () => {
+            loginPanel.style.display = 'flex';
+        });
+
+        closeLogin.addEventListener('click', () => {
+            loginPanel.style.display = 'none';
+        });
+
+        // Close login panel when clicking outside
+        window.addEventListener('click', (e) => {
+            if (e.target === loginPanel) {
+                loginPanel.style.display = 'none';
+            }
+        });
+
+        // Login Form Submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            // For demo purposes, we'll simulate a successful login
+            // In a real app, you would use Firebase authentication
+            simulateLogin();
+        });
+
+        // Add Crop Button
+        addCropBtn.addEventListener('click', () => {
+            alert('Add Crop functionality would open a form here in a real application.');
+        });
+
+        // Simulate login for demo
+        function simulateLogin() {
+            // Hide login panel and show dashboard
+            loginPanel.style.display = 'none';
+            dashboard.style.display = 'block';
+            
+            // Scroll to dashboard
+            dashboard.scrollIntoView({ behavior: 'smooth' });
+            
+            // Fetch weather data
+            fetchWeatherData();
+            
+            // Fetch AI recommendations
+            fetchAIRecommendations();
+        }
+
+        // Fetch Weather Data
+        async function fetchWeatherData() {
+            const apiKey = 'f39d29232d1e45abbbf92507252911';
+            // In a real app, you would get the user's location
+            const city = 'Colombo';
+            
+            try {
+                const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`);
+                const data = await response.json();
+                
+                // Update weather card
+                const weatherTemp = document.querySelector('.weather-temp');
+                const weatherDesc = document.querySelector('.weather-card p');
+                
+                if (weatherTemp && weatherDesc) {
+                    weatherTemp.textContent = `${Math.round(data.current.temp_c)}°C`;
+                    weatherDesc.textContent = data.current.condition.text;
+                }
+            } catch (error) {
+                console.error('Error fetching weather data:', error);
+            }
+        }
+
+        // Fetch AI Recommendations
+        async function fetchAIRecommendations() {
+            // This would be a call to the Apilage AI API in a real application
+            // For demo purposes, we'll use mock data
+            const mockRecommendations = [
+                "Increase watering for Tomato Greenhouse by 15%",
+                "Apply organic fertilizer to Corn Field A in 3 days",
+                "Monitor Wheat Field B for signs of rust fungus"
+            ];
+            
+            const recommendationsList = document.querySelector('.dashboard-card:nth-child(4) ul');
+            if (recommendationsList) {
+                recommendationsList.innerHTML = '';
+                mockRecommendations.forEach(rec => {
+                    const li = document.createElement('li');
+                    li.textContent = rec;
+                    recommendationsList.appendChild(li);
+                });
+            }
+        }
+
+        // Check auth state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // User is signed in
+                console.log('User is signed in:', user);
+                // In a real app, you would show the dashboard here
+            } else {
+                // User is signed out
+                console.log('User is signed out');
+            }
+        });
+    </script>
+</body>
+</html>
