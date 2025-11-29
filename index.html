@@ -7,6 +7,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <style>
         :root {
             --primary-color: #34C759;
@@ -124,6 +128,20 @@
         .btn-outline:hover {
             background: var(--primary-color);
             color: white;
+        }
+
+        .btn-google {
+            background: white;
+            color: #757575;
+            border: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-google:hover {
+            background: #f5f5f5;
         }
 
         /* Hero Section */
@@ -311,6 +329,24 @@
             margin-bottom: 20px;
         }
 
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .divider::before, .divider::after {
+            content: "";
+            flex: 1;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .divider span {
+            padding: 0 10px;
+            color: var(--gray-color);
+            font-size: 14px;
+        }
+
         /* Dashboard */
         .dashboard {
             display: none;
@@ -430,6 +466,103 @@
             font-size: 18px;
         }
 
+        /* Profile Setup */
+        .profile-setup {
+            display: none;
+            padding: 120px 0 60px;
+        }
+
+        .setup-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 40px;
+            box-shadow: var(--card-shadow);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .setup-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 600;
+        }
+
+        .setup-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .setup-steps::before {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #eee;
+            z-index: 1;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .step.active .step-number {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 14px;
+            color: var(--gray-color);
+        }
+
+        .step.active .step-label {
+            color: var(--primary-color);
+            font-weight: 500;
+        }
+
+        .setup-form {
+            display: none;
+        }
+
+        .setup-form.active {
+            display: block;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .setup-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
         /* Footer */
         footer {
             background: var(--dark-color);
@@ -475,6 +608,26 @@
             font-size: 14px;
         }
 
+        /* User Menu */
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .navbar {
@@ -518,6 +671,31 @@
                 margin-top: 20px;
                 width: 100%;
             }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+
+        /* Alert Messages */
+        .alert {
+            padding: 12px 15px;
+            border-radius: var(--border-radius);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
     </style>
 </head>
@@ -536,9 +714,13 @@
                     <li><a href="#pricing">Pricing</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
-                <div class="auth-buttons">
+                <div class="auth-buttons" id="authButtons">
                     <button class="btn btn-outline" id="loginBtn">Log In</button>
                     <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                </div>
+                <div class="user-menu" id="userMenu" style="display: none;">
+                    <div class="user-avatar" id="userAvatar">JD</div>
+                    <button class="btn btn-outline" id="logoutBtn">Log Out</button>
                 </div>
             </nav>
         </div>
@@ -614,7 +796,8 @@
     <div class="login-panel" id="loginPanel">
         <div class="login-container">
             <button class="close-login" id="closeLogin">&times;</button>
-            <h2>Welcome Back</h2>
+            <h2 id="loginTitle">Welcome Back</h2>
+            <div class="alert" id="loginAlert"></div>
             <form id="loginForm">
                 <div class="form-group">
                     <label for="email">Email</label>
@@ -632,21 +815,190 @@
                     <a href="#" class="forgot-password">Forgot password?</a>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LefxhssAAAAAM29DqBN633Ig9825th3oKOEqx3R"></div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Log In</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="loginSubmit">Log In</button>
             </form>
+            <div class="divider">
+                <span>or</span>
+            </div>
+            <button class="btn btn-google" style="width: 100%;" id="googleLogin">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
             <div style="text-align: center; margin-top: 20px;">
                 <p>Don't have an account? <a href="#" id="switchToSignup" style="color: var(--primary-color);">Sign up</a></p>
             </div>
         </div>
     </div>
 
-    <!-- Dashboard (Hidden by default) -->
+    <!-- Signup Panel -->
+    <div class="login-panel" id="signupPanel">
+        <div class="login-container">
+            <button class="close-login" id="closeSignup">&times;</button>
+            <h2>Create Account</h2>
+            <div class="alert" id="signupAlert"></div>
+            <form id="signupForm">
+                <div class="form-group">
+                    <label for="signupName">Full Name</label>
+                    <input type="text" id="signupName" class="form-control" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupEmail">Email</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="signupPassword">Password</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                </div>
+                <div class="g-recaptcha" data-sitekey="6LefxhssAAAAAM29DqBN633Ig9825th3oKOEqx3R"></div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="signupSubmit">Sign Up</button>
+            </form>
+            <div class="divider">
+                <span>or</span>
+            </div>
+            <button class="btn btn-google" style="width: 100%;" id="googleSignup">
+                <i class="fab fa-google"></i> Continue with Google
+            </button>
+            <div style="text-align: center; margin-top: 20px;">
+                <p>Already have an account? <a href="#" id="switchToLogin" style="color: var(--primary-color);">Log in</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Setup -->
+    <section class="profile-setup" id="profileSetup">
+        <div class="container">
+            <div class="setup-container">
+                <h2>Complete Your Profile</h2>
+                <div class="setup-steps">
+                    <div class="step active" id="step1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Personal Info</div>
+                    </div>
+                    <div class="step" id="step2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Farm Details</div>
+                    </div>
+                    <div class="step" id="step3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Crops & Preferences</div>
+                    </div>
+                </div>
+                
+                <form id="profileForm">
+                    <!-- Step 1: Personal Information -->
+                    <div class="setup-form active" id="formStep1">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" class="form-control" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" id="location" class="form-control" placeholder="City, Country" required>
+                            </div>
+                        </div>
+                        <div class="setup-buttons">
+                            <div></div> <!-- Empty div for spacing -->
+                            <button type="button" class="btn btn-primary" id="nextStep1">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2: Farm Details -->
+                    <div class="setup-form" id="formStep2">
+                        <div class="form-group">
+                            <label for="farmName">Farm Name</label>
+                            <input type="text" id="farmName" class="form-control" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="farmSize">Farm Size (hectares)</label>
+                                <input type="number" id="farmSize" class="form-control" min="0.1" step="0.1" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="soilType">Soil Type</label>
+                                <select id="soilType" class="form-control" required>
+                                    <option value="">Select soil type</option>
+                                    <option value="clay">Clay</option>
+                                    <option value="sandy">Sandy</option>
+                                    <option value="loamy">Loamy</option>
+                                    <option value="silt">Silt</option>
+                                    <option value="peat">Peat</option>
+                                    <option value="chalky">Chalky</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="irrigation">Irrigation System</label>
+                            <select id="irrigation" class="form-control" required>
+                                <option value="">Select irrigation system</option>
+                                <option value="drip">Drip Irrigation</option>
+                                <option value="sprinkler">Sprinkler System</option>
+                                <option value="flood">Flood Irrigation</option>
+                                <option value="manual">Manual Watering</option>
+                            </select>
+                        </div>
+                        <div class="setup-buttons">
+                            <button type="button" class="btn btn-outline" id="prevStep2">Previous</button>
+                            <button type="button" class="btn btn-primary" id="nextStep2">Next</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3: Crops & Preferences -->
+                    <div class="setup-form" id="formStep3">
+                        <div class="form-group">
+                            <label for="crops">Main Crops Grown</label>
+                            <select id="crops" class="form-control" multiple required>
+                                <option value="corn">Corn</option>
+                                <option value="wheat">Wheat</option>
+                                <option value="rice">Rice</option>
+                                <option value="soybeans">Soybeans</option>
+                                <option value="tomatoes">Tomatoes</option>
+                                <option value="potatoes">Potatoes</option>
+                                <option value="cotton">Cotton</option>
+                                <option value="coffee">Coffee</option>
+                                <option value="sugarcane">Sugarcane</option>
+                                <option value="other">Other</option>
+                            </select>
+                            <small>Hold Ctrl/Cmd to select multiple crops</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="farmingType">Farming Type</label>
+                            <select id="farmingType" class="form-control" required>
+                                <option value="">Select farming type</option>
+                                <option value="organic">Organic Farming</option>
+                                <option value="conventional">Conventional Farming</option>
+                                <option value="mixed">Mixed Farming</option>
+                                <option value="hydroponics">Hydroponics</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="experience">Years of Farming Experience</label>
+                            <input type="number" id="experience" class="form-control" min="0" max="80" required>
+                        </div>
+                        <div class="setup-buttons">
+                            <button type="button" class="btn btn-outline" id="prevStep3">Previous</button>
+                            <button type="submit" class="btn btn-primary" id="completeSetup">Complete Setup</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard -->
     <section class="dashboard" id="dashboard">
         <div class="container">
             <div class="dashboard-header">
                 <div class="dashboard-title">
-                    <h2>My Farm Dashboard</h2>
-                    <p>Welcome back, John! Here's your farm overview.</p>
+                    <h2 id="dashboardGreeting">My Farm Dashboard</h2>
+                    <p id="dashboardDate">Welcome back! Here's your farm overview.</p>
                 </div>
                 <div class="dashboard-actions">
                     <button class="btn btn-primary" id="addCropBtn">
@@ -658,92 +1010,63 @@
             <div class="dashboard-grid">
                 <div class="dashboard-card">
                     <h3><i class="fas fa-seedling"></i> My Crops</h3>
-                    <ul class="crop-list">
-                        <li>
-                            <span>Corn Field A</span>
-                            <span>45 days</span>
-                        </li>
-                        <li>
-                            <span>Tomato Greenhouse</span>
-                            <span>22 days</span>
-                        </li>
-                        <li>
-                            <span>Wheat Field B</span>
-                            <span>68 days</span>
-                        </li>
+                    <ul class="crop-list" id="cropList">
+                        <!-- Crops will be loaded dynamically -->
                     </ul>
                 </div>
 
                 <div class="dashboard-card">
                     <h3><i class="fas fa-tint"></i> Watering Schedule</h3>
-                    <div class="schedule-item">
-                        <div class="schedule-time">06:00 AM</div>
-                        <div>Tomato Greenhouse - Drip Irrigation</div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">08:30 AM</div>
-                        <div>Corn Field A - Sprinkler System</div>
-                    </div>
-                    <div class="schedule-item">
-                        <div class="schedule-time">05:00 PM</div>
-                        <div>Wheat Field B - Sprinkler System</div>
+                    <div id="wateringSchedule">
+                        <!-- Schedule will be loaded dynamically -->
                     </div>
                 </div>
 
                 <div class="weather-card">
                     <div class="weather-header">
                         <h3><i class="fas fa-cloud-sun"></i> Weather Today</h3>
-                        <div class="weather-temp">24°C</div>
+                        <div class="weather-temp" id="weatherTemp">--°C</div>
                     </div>
-                    <p>Mostly sunny with a chance of light rain in the evening.</p>
+                    <p id="weatherDesc">Loading weather data...</p>
                     <div class="weather-details">
                         <div class="weather-detail">
                             <i class="fas fa-wind"></i>
-                            <span>12 km/h</span>
+                            <span id="windSpeed">-- km/h</span>
                         </div>
                         <div class="weather-detail">
                             <i class="fas fa-tint"></i>
-                            <span>65% Humidity</span>
+                            <span id="humidity">--% Humidity</span>
                         </div>
                         <div class="weather-detail">
                             <i class="fas fa-sun"></i>
-                            <span>UV Index: 6</span>
+                            <span id="uvIndex">UV Index: --</span>
                         </div>
                         <div class="weather-detail">
                             <i class="fas fa-cloud-rain"></i>
-                            <span>30% Rain</span>
+                            <span id="rainChance">--% Rain</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="dashboard-card">
                     <h3><i class="fas fa-robot"></i> AI Recommendations</h3>
-                    <p>Based on current conditions, we recommend:</p>
-                    <ul style="margin-top: 15px; padding-left: 20px;">
-                        <li>Increase watering for Tomato Greenhouse by 15%</li>
-                        <li>Apply organic fertilizer to Corn Field A in 3 days</li>
-                        <li>Monitor Wheat Field B for signs of rust fungus</li>
-                    </ul>
+                    <div id="aiRecommendations">
+                        <!-- AI recommendations will be loaded dynamically -->
+                    </div>
                 </div>
 
                 <div class="dashboard-card">
                     <h3><i class="fas fa-bell"></i> Alerts & Warnings</h3>
-                    <div style="background: #FFF3CD; color: #856404; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                        <strong>Weather Alert:</strong> Expected heavy rainfall in 48 hours. Consider delaying fertilization.
-                    </div>
-                    <div style="background: #F8D7DA; color: #721C24; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                        <strong>Pest Warning:</strong> Increased aphid activity detected in nearby farms. Monitor your crops.
+                    <div id="alertsContainer">
+                        <!-- Alerts will be loaded dynamically -->
                     </div>
                 </div>
 
                 <div class="dashboard-card">
                     <h3><i class="fas fa-chart-bar"></i> Yield Forecast</h3>
-                    <p>Based on current growth and conditions:</p>
-                    <ul style="margin-top: 15px;">
-                        <li>Corn Field A: Estimated 8.2 tons/acre</li>
-                        <li>Tomato Greenhouse: Estimated 12.5 kg/sq.m</li>
-                        <li>Wheat Field B: Estimated 6.7 tons/acre</li>
-                    </ul>
+                    <div id="yieldForecast">
+                        <!-- Yield forecast will be loaded dynamically -->
+                    </div>
                 </div>
             </div>
         </div>
@@ -790,12 +1113,8 @@
         </div>
     </footer>
 
-    <script type="module">
-        // Firebase configuration and initialization
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
-
+    <script>
+        // Firebase configuration
         const firebaseConfig = {
             apiKey: "AIzaSyAkZ1COLT59ukLGzpv5lW3UZ8vQ9tEN1gw",
             authDomain: "hela-code.firebaseapp.com",
@@ -807,9 +1126,9 @@
         };
 
         // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
 
         // API Configuration
         const API_CONFIG = {
@@ -823,44 +1142,80 @@
         const signupBtn = document.getElementById('signupBtn');
         const getStartedBtn = document.getElementById('getStartedBtn');
         const loginPanel = document.getElementById('loginPanel');
+        const signupPanel = document.getElementById('signupPanel');
         const closeLogin = document.getElementById('closeLogin');
+        const closeSignup = document.getElementById('closeSignup');
         const loginForm = document.getElementById('loginForm');
+        const signupForm = document.getElementById('signupForm');
         const dashboard = document.getElementById('dashboard');
+        const profileSetup = document.getElementById('profileSetup');
         const switchToSignup = document.getElementById('switchToSignup');
+        const switchToLogin = document.getElementById('switchToLogin');
         const addCropBtn = document.getElementById('addCropBtn');
+        const authButtons = document.getElementById('authButtons');
+        const userMenu = document.getElementById('userMenu');
+        const userAvatar = document.getElementById('userAvatar');
+        const logoutBtn = document.getElementById('logoutBtn');
+        const googleLogin = document.getElementById('googleLogin');
+        const googleSignup = document.getElementById('googleSignup');
+        const loginAlert = document.getElementById('loginAlert');
+        const signupAlert = document.getElementById('signupAlert');
+
+        // Profile setup elements
+        const nextStep1 = document.getElementById('nextStep1');
+        const nextStep2 = document.getElementById('nextStep2');
+        const prevStep2 = document.getElementById('prevStep2');
+        const prevStep3 = document.getElementById('prevStep3');
+        const profileForm = document.getElementById('profileForm');
+        const completeSetup = document.getElementById('completeSetup');
+
+        // Current user data
+        let currentUser = null;
+        let userProfile = null;
 
         // Event Listeners
         loginBtn.addEventListener('click', () => {
             loginPanel.style.display = 'flex';
+            signupPanel.style.display = 'none';
         });
 
         signupBtn.addEventListener('click', () => {
-            loginPanel.style.display = 'flex';
-            document.querySelector('.login-container h2').textContent = 'Create Account';
-            document.querySelector('.login-container button[type="submit"]').textContent = 'Sign Up';
-            document.getElementById('switchToSignup').innerHTML = 'Already have an account? <a href="#" id="switchToLogin">Log in</a>';
-            
-            // Add event listener for the new switchToLogin link
-            document.getElementById('switchToLogin').addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelector('.login-container h2').textContent = 'Welcome Back';
-                document.querySelector('.login-container button[type="submit"]').textContent = 'Log In';
-                document.getElementById('switchToSignup').innerHTML = 'Don\'t have an account? <a href="#" id="switchToSignup">Sign up</a>';
-            });
+            signupPanel.style.display = 'flex';
+            loginPanel.style.display = 'none';
         });
 
         getStartedBtn.addEventListener('click', () => {
-            loginPanel.style.display = 'flex';
+            signupPanel.style.display = 'flex';
+            loginPanel.style.display = 'none';
         });
 
         closeLogin.addEventListener('click', () => {
             loginPanel.style.display = 'none';
         });
 
-        // Close login panel when clicking outside
+        closeSignup.addEventListener('click', () => {
+            signupPanel.style.display = 'none';
+        });
+
+        switchToSignup.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginPanel.style.display = 'none';
+            signupPanel.style.display = 'flex';
+        });
+
+        switchToLogin.addEventListener('click', (e) => {
+            e.preventDefault();
+            signupPanel.style.display = 'none';
+            loginPanel.style.display = 'flex';
+        });
+
+        // Close panels when clicking outside
         window.addEventListener('click', (e) => {
             if (e.target === loginPanel) {
                 loginPanel.style.display = 'none';
+            }
+            if (e.target === signupPanel) {
+                signupPanel.style.display = 'none';
             }
         });
 
@@ -870,50 +1225,363 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            // For demo purposes, we'll simulate a successful login
-            // In a real app, you would use Firebase authentication
-            simulateLogin();
+            showAlert(loginAlert, 'Logging in...', 'success');
+            
+            auth.signInWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed in
+                    currentUser = userCredential.user;
+                    hideAuthPanel();
+                    checkUserProfile();
+                })
+                .catch((error) => {
+                    showAlert(loginAlert, error.message, 'error');
+                });
+        });
+
+        // Signup Form Submission
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            if (password !== confirmPassword) {
+                showAlert(signupAlert, 'Passwords do not match', 'error');
+                return;
+            }
+            
+            showAlert(signupAlert, 'Creating account...', 'success');
+            
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    // Signed up
+                    currentUser = userCredential.user;
+                    
+                    // Store basic user info
+                    return db.collection('users').doc(currentUser.uid).set({
+                        name: name,
+                        email: email,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                })
+                .then(() => {
+                    hideAuthPanel();
+                    showProfileSetup();
+                })
+                .catch((error) => {
+                    showAlert(signupAlert, error.message, 'error');
+                });
+        });
+
+        // Google Authentication
+        googleLogin.addEventListener('click', handleGoogleAuth);
+        googleSignup.addEventListener('click', handleGoogleAuth);
+
+        function handleGoogleAuth() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    currentUser = result.user;
+                    hideAuthPanel();
+                    checkUserProfile();
+                })
+                .catch((error) => {
+                    showAlert(loginAlert, error.message, 'error');
+                });
+        }
+
+        // Logout
+        logoutBtn.addEventListener('click', () => {
+            auth.signOut().then(() => {
+                currentUser = null;
+                userProfile = null;
+                showAuthButtons();
+                hideDashboard();
+                hideProfileSetup();
+            });
+        });
+
+        // Profile Setup Navigation
+        nextStep1.addEventListener('click', () => {
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('formStep1').classList.remove('active');
+            document.getElementById('formStep2').classList.add('active');
+        });
+
+        nextStep2.addEventListener('click', () => {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step3').classList.add('active');
+            document.getElementById('formStep2').classList.remove('active');
+            document.getElementById('formStep3').classList.add('active');
+        });
+
+        prevStep2.addEventListener('click', () => {
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
+            document.getElementById('formStep2').classList.remove('active');
+            document.getElementById('formStep1').classList.add('active');
+        });
+
+        prevStep3.addEventListener('click', () => {
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
+            document.getElementById('formStep3').classList.remove('active');
+            document.getElementById('formStep2').classList.add('active');
+        });
+
+        // Complete Profile Setup
+        profileForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const profileData = {
+                personal: {
+                    name: document.getElementById('fullName').value,
+                    phone: document.getElementById('phone').value,
+                    location: document.getElementById('location').value
+                },
+                farm: {
+                    name: document.getElementById('farmName').value,
+                    size: parseFloat(document.getElementById('farmSize').value),
+                    soilType: document.getElementById('soilType').value,
+                    irrigation: document.getElementById('irrigation').value
+                },
+                crops: {
+                    mainCrops: Array.from(document.getElementById('crops').selectedOptions).map(option => option.value),
+                    farmingType: document.getElementById('farmingType').value,
+                    experience: parseInt(document.getElementById('experience').value)
+                },
+                profileCompleted: true,
+                completedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            // Save profile to Firestore
+            db.collection('users').doc(currentUser.uid).update(profileData)
+                .then(() => {
+                    userProfile = profileData;
+                    hideProfileSetup();
+                    showDashboard();
+                    loadDashboardData();
+                })
+                .catch((error) => {
+                    alert('Error saving profile: ' + error.message);
+                });
         });
 
         // Add Crop Button
         addCropBtn.addEventListener('click', () => {
-            alert('Add Crop functionality would open a form here in a real application.');
+            const cropName = prompt('Enter crop name:');
+            if (cropName) {
+                const cropData = {
+                    name: cropName,
+                    plantingDate: new Date().toISOString().split('T')[0],
+                    status: 'Growing',
+                    id: Date.now().toString()
+                };
+                
+                // Save to Firestore
+                db.collection('users').doc(currentUser.uid).collection('crops').add(cropData)
+                    .then(() => {
+                        loadCrops();
+                    })
+                    .catch((error) => {
+                        alert('Error adding crop: ' + error.message);
+                    });
+            }
         });
 
-        // Simulate login for demo
-        function simulateLogin() {
-            // Hide login panel and show dashboard
+        // Helper Functions
+        function showAlert(alertElement, message, type) {
+            alertElement.textContent = message;
+            alertElement.className = `alert alert-${type}`;
+            alertElement.style.display = 'block';
+            
+            setTimeout(() => {
+                alertElement.style.display = 'none';
+            }, 5000);
+        }
+
+        function hideAuthPanel() {
             loginPanel.style.display = 'none';
+            signupPanel.style.display = 'none';
+        }
+
+        function showAuthButtons() {
+            authButtons.style.display = 'flex';
+            userMenu.style.display = 'none';
+        }
+
+        function showUserMenu() {
+            authButtons.style.display = 'none';
+            userMenu.style.display = 'flex';
+            
+            // Set user avatar with first letter of name
+            if (currentUser && currentUser.displayName) {
+                userAvatar.textContent = currentUser.displayName.charAt(0).toUpperCase();
+            } else if (userProfile && userProfile.personal) {
+                userAvatar.textContent = userProfile.personal.name.charAt(0).toUpperCase();
+            } else {
+                userAvatar.textContent = 'U';
+            }
+        }
+
+        function showDashboard() {
             dashboard.style.display = 'block';
+            document.querySelector('.hero').style.display = 'none';
+            document.querySelector('.features').style.display = 'none';
+            document.querySelector('footer').style.display = 'block';
+        }
+
+        function hideDashboard() {
+            dashboard.style.display = 'none';
+            document.querySelector('.hero').style.display = 'block';
+            document.querySelector('.features').style.display = 'block';
+        }
+
+        function showProfileSetup() {
+            profileSetup.style.display = 'block';
+            document.querySelector('.hero').style.display = 'none';
+            document.querySelector('.features').style.display = 'none';
+            document.querySelector('footer').style.display = 'none';
+        }
+
+        function hideProfileSetup() {
+            profileSetup.style.display = 'none';
+        }
+
+        function checkUserProfile() {
+            if (currentUser) {
+                showUserMenu();
+                
+                // Check if user has completed profile
+                db.collection('users').doc(currentUser.uid).get()
+                    .then((doc) => {
+                        if (doc.exists) {
+                            userProfile = doc.data();
+                            if (userProfile.profileCompleted) {
+                                showDashboard();
+                                loadDashboardData();
+                            } else {
+                                showProfileSetup();
+                            }
+                        } else {
+                            // User document doesn't exist, create one
+                            db.collection('users').doc(currentUser.uid).set({
+                                name: currentUser.displayName || currentUser.email.split('@')[0],
+                                email: currentUser.email,
+                                createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                                profileCompleted: false
+                            }).then(() => {
+                                showProfileSetup();
+                            });
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error getting user profile:', error);
+                    });
+            }
+        }
+
+        function loadDashboardData() {
+            // Update greeting
+            const greeting = document.getElementById('dashboardGreeting');
+            if (userProfile && userProfile.personal) {
+                greeting.textContent = `Welcome, ${userProfile.personal.name}`;
+            } else {
+                greeting.textContent = 'My Farm Dashboard';
+            }
             
-            // Scroll to dashboard
-            dashboard.scrollIntoView({ behavior: 'smooth' });
+            // Update date
+            const dateElement = document.getElementById('dashboardDate');
+            const now = new Date();
+            dateElement.textContent = `Today is ${now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
             
-            // Fetch weather data
+            // Load crops
+            loadCrops();
+            
+            // Load weather
             fetchWeatherData();
             
-            // Fetch AI recommendations
+            // Load AI recommendations
             fetchAIRecommendations();
+        }
+
+        function loadCrops() {
+            const cropList = document.getElementById('cropList');
+            const wateringSchedule = document.getElementById('wateringSchedule');
+            
+            // Clear existing content
+            cropList.innerHTML = '';
+            wateringSchedule.innerHTML = '<p>No crops added yet.</p>';
+            
+            if (!currentUser) return;
+            
+            // Get crops from Firestore
+            db.collection('users').doc(currentUser.uid).collection('crops')
+                .get()
+                .then((querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        cropList.innerHTML = '<li>No crops added yet.</li>';
+                        wateringSchedule.innerHTML = '<p>No crops added yet.</p>';
+                        return;
+                    }
+                    
+                    querySnapshot.forEach((doc) => {
+                        const crop = doc.data();
+                        
+                        // Add to crop list
+                        const cropItem = document.createElement('li');
+                        cropItem.innerHTML = `
+                            <span>${crop.name}</span>
+                            <span>${crop.status}</span>
+                        `;
+                        cropList.appendChild(cropItem);
+                        
+                        // Add to watering schedule
+                        const scheduleItem = document.createElement('div');
+                        scheduleItem.className = 'schedule-item';
+                        scheduleItem.innerHTML = `
+                            <div class="schedule-time">${getRandomTime()}</div>
+                            <div>${crop.name} - ${userProfile ? userProfile.farm.irrigation : 'Irrigation'}</div>
+                        `;
+                        wateringSchedule.appendChild(scheduleItem);
+                    });
+                })
+                .catch((error) => {
+                    console.error('Error loading crops:', error);
+                });
+        }
+
+        function getRandomTime() {
+            const hours = Math.floor(Math.random() * 12) + 6; // Between 6 AM and 5 PM
+            const minutes = Math.floor(Math.random() * 60);
+            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const displayHours = hours % 12 || 12;
+            return `${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
         }
 
         // Fetch Weather Data
         async function fetchWeatherData() {
             const apiKey = 'f39d29232d1e45abbbf92507252911';
-            // In a real app, you would get the user's location
-            const city = 'Colombo';
+            // In a real app, you would get the user's location from their profile
+            const city = userProfile && userProfile.personal ? userProfile.personal.location.split(',')[0] : 'Colombo';
             
             try {
                 const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`);
                 const data = await response.json();
                 
                 // Update weather card
-                const weatherTemp = document.querySelector('.weather-temp');
-                const weatherDesc = document.querySelector('.weather-card p');
+                document.getElementById('weatherTemp').textContent = `${Math.round(data.current.temp_c)}°C`;
+                document.getElementById('weatherDesc').textContent = data.current.condition.text;
+                document.getElementById('windSpeed').textContent = `${data.current.wind_kph} km/h`;
+                document.getElementById('humidity').textContent = `${data.current.humidity}% Humidity`;
+                document.getElementById('uvIndex').textContent = `UV Index: ${data.current.uv}`;
                 
-                if (weatherTemp && weatherDesc) {
-                    weatherTemp.textContent = `${Math.round(data.current.temp_c)}°C`;
-                    weatherDesc.textContent = data.current.condition.text;
-                }
+                // For rain chance, we'd need a forecast API, so we'll use a placeholder
+                document.getElementById('rainChance').textContent = `${Math.floor(Math.random() * 50)}% Rain`;
             } catch (error) {
                 console.error('Error fetching weather data:', error);
             }
@@ -922,34 +1590,68 @@
         // Fetch AI Recommendations
         async function fetchAIRecommendations() {
             // This would be a call to the Apilage AI API in a real application
-            // For demo purposes, we'll use mock data
+            // For demo purposes, we'll use mock data based on user profile
+            
+            const recommendationsContainer = document.getElementById('aiRecommendations');
+            const alertsContainer = document.getElementById('alertsContainer');
+            const yieldForecast = document.getElementById('yieldForecast');
+            
+            if (!userProfile) {
+                recommendationsContainer.innerHTML = '<p>Complete your profile to get personalized recommendations.</p>';
+                return;
+            }
+            
+            // Mock recommendations based on user data
             const mockRecommendations = [
-                "Increase watering for Tomato Greenhouse by 15%",
-                "Apply organic fertilizer to Corn Field A in 3 days",
-                "Monitor Wheat Field B for signs of rust fungus"
+                `Based on your ${userProfile.farm.soilType} soil, consider adding organic matter to improve water retention.`,
+                `Your ${userProfile.farm.irrigation} system is efficient for ${userProfile.crops.mainCrops.join(', ')}.`,
+                `With ${userProfile.crops.experience} years of experience, you might try crop rotation to maintain soil health.`
             ];
             
-            const recommendationsList = document.querySelector('.dashboard-card:nth-child(4) ul');
-            if (recommendationsList) {
-                recommendationsList.innerHTML = '';
-                mockRecommendations.forEach(rec => {
-                    const li = document.createElement('li');
-                    li.textContent = rec;
-                    recommendationsList.appendChild(li);
-                });
-            }
+            recommendationsContainer.innerHTML = '<p>Based on current conditions, we recommend:</p><ul style="margin-top: 15px; padding-left: 20px;">';
+            mockRecommendations.forEach(rec => {
+                recommendationsContainer.innerHTML += `<li>${rec}</li>`;
+            });
+            recommendationsContainer.innerHTML += '</ul>';
+            
+            // Mock alerts
+            alertsContainer.innerHTML = `
+                <div style="background: #FFF3CD; color: #856404; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <strong>Weather Alert:</strong> Expected temperature drop in 3 days. Protect sensitive crops.
+                </div>
+                <div style="background: #D1ECF1; color: #0C5460; padding: 15px; border-radius: 8px; margin-top: 10px;">
+                    <strong>Irrigation:</strong> Next watering scheduled for tomorrow morning.
+                </div>
+            `;
+            
+            // Mock yield forecast
+            yieldForecast.innerHTML = `
+                <p>Based on current growth and conditions:</p>
+                <ul style="margin-top: 15px;">
+                    <li>${userProfile.crops.mainCrops[0] || 'Primary crop'}: Estimated ${(userProfile.farm.size * 2.5).toFixed(1)} tons</li>
+                    <li>Overall yield potential: Good</li>
+                </ul>
+            `;
         }
 
-        // Check auth state
-        onAuthStateChanged(auth, (user) => {
+        // Auth state observer
+        auth.onAuthStateChanged((user) => {
             if (user) {
-                // User is signed in
-                console.log('User is signed in:', user);
-                // In a real app, you would show the dashboard here
+                currentUser = user;
+                checkUserProfile();
             } else {
-                // User is signed out
-                console.log('User is signed out');
+                currentUser = null;
+                userProfile = null;
+                showAuthButtons();
+                hideDashboard();
+                hideProfileSetup();
             }
+        });
+
+        // Initialize the app
+        window.addEventListener('DOMContentLoaded', () => {
+            // Check if user is already logged in
+            // This will trigger the auth state observer
         });
     </script>
 </body>
