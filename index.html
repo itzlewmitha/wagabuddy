@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="si">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AgriSmart | Modern Agriculture Management</title>
+    <title>AgriSmart | නවීන කෘෂිකර්මාන්ත කළමනාකරණ පද්ධතිය</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -73,26 +73,6 @@
 
         .logo i {
             margin-right: 10px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-        }
-
-        .nav-links li {
-            margin-left: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--dark-color);
-            font-weight: 500;
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
         }
 
         .auth-buttons {
@@ -466,6 +446,25 @@
             font-size: 18px;
         }
 
+        .season-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .maha-season {
+            background: #FF6B6B;
+            color: white;
+        }
+
+        .yala-season {
+            background: #4ECDC4;
+            color: white;
+        }
+
         /* Profile Setup */
         .profile-setup {
             display: none;
@@ -635,14 +634,6 @@
                 padding: 15px 0;
             }
 
-            .nav-links {
-                margin: 20px 0;
-            }
-
-            .nav-links li {
-                margin: 0 15px;
-            }
-
             .hero h1 {
                 font-size: 36px;
             }
@@ -697,6 +688,21 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+        .language-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
@@ -708,19 +714,13 @@
                     <i class="fas fa-seedling"></i>
                     AgriSmart
                 </a>
-                <ul class="nav-links">
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#pricing">Pricing</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
                 <div class="auth-buttons" id="authButtons">
-                    <button class="btn btn-outline" id="loginBtn">Log In</button>
-                    <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+                    <button class="btn btn-outline" id="loginBtn">පිවිසෙන්න</button>
+                    <button class="btn btn-primary" id="signupBtn">ගිණුමක් තනන්න</button>
                 </div>
                 <div class="user-menu" id="userMenu" style="display: none;">
-                    <div class="user-avatar" id="userAvatar">JD</div>
-                    <button class="btn btn-outline" id="logoutBtn">Log Out</button>
+                    <div class="user-avatar" id="userAvatar">ප</div>
+                    <button class="btn btn-outline" id="logoutBtn">නික්මෙන්න</button>
                 </div>
             </nav>
         </div>
@@ -729,11 +729,11 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>Smart Agriculture Management for Modern Farmers</h1>
-            <p>Optimize your crop production with AI-powered insights, automated scheduling, and real-time monitoring for better yields and sustainable farming.</p>
+            <h1>නවීන ගොවීන් සඳහා ස්මාර්ට් කෘෂිකර්මාන්ත කළමනාකරණය</h1>
+            <p>AI-බලගත් තීරු රැස, ස්වයංක්‍රීය කාලසටහන් සහ තත්වානුකූල නිරීක්ෂණය භාවිතයෙන් ඔබේ බෝග ඵලදායිතාවය ප්‍රශස්ත කරන්න.</p>
             <div class="hero-buttons">
-                <button class="btn btn-primary" id="getStartedBtn">Get Started</button>
-                <button class="btn btn-outline">Watch Demo</button>
+                <button class="btn btn-primary" id="getStartedBtn">ආරම්භ කරමු</button>
+                <button class="btn btn-outline">දර්ශනය නරඹන්න</button>
             </div>
         </div>
     </section>
@@ -742,51 +742,51 @@
     <section class="features" id="features">
         <div class="container">
             <div class="section-title">
-                <h2>Powerful Features for Modern Agriculture</h2>
-                <p>Our platform combines cutting-edge technology with agricultural expertise to help you maximize your farm's potential.</p>
+                <h2>නවීන කෘෂිකර්මාන්තය සඳහා බලගත් විශේෂාංග</h2>
+                <p>අපගේ වේදිකාව ඔබේ ගොවිපලේ විභවය උපරිම කිරීමට තාක්ෂණය සහ කෘෂිකර්මාන්ත ඥානය ඒකාබද්ධ කරයි.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-tint"></i>
                     </div>
-                    <h3>Smart Irrigation</h3>
-                    <p>Automated watering schedules based on soil moisture, weather forecasts, and crop requirements.</p>
+                    <h3>ස්මාර්ට් ජලයීම</h3>
+                    <p>මඩ තෙතමනය, කාලගුණික පුරෝකථන සහ බෝග අවශ්‍යතා මත පදනම්ව ස්වයංක්‍රීය ජලයීමේ කාලසටහන්.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-robot"></i>
                     </div>
-                    <h3>AI Insights</h3>
-                    <p>Get personalized recommendations for fertilization, pest control, and harvesting based on AI analysis.</p>
+                    <h3>AI තීරු</h3>
+                    <p>AI විශ්ලේෂණය මත පදනම්ව සරිලන ලද ලිහුම්, පළිබෝධ පාලනය සහ අස්වනු කැබලීමේ යෝජනා.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-cloud-sun"></i>
                     </div>
-                    <h3>Weather Integration</h3>
-                    <p>Real-time weather data and alerts to protect your crops from adverse conditions.</p>
+                    <h3>කාලගුණික ඒකාබද්ධ කිරීම</h3>
+                    <p>තත්කාලීන කාලගුණික දත්ත සහ ඇඟවීම් ඔබේ බෝග අහිතකර තත්වයන්ගෙන් ආරක්ෂා කිරීමට.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <h3>Crop Monitoring</h3>
-                    <p>Track growth stages, health indicators, and yield predictions for your crops.</p>
+                    <h3>බෝග නිරීක්ෂණය</h3>
+                    <p>ඔබේ බෝග සඳහා වර්ධන අවධි, සෞඛ්‍ය දර්ශක සහ අස්වනු පුරෝකථන ලුහුබැඳීම.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-bell"></i>
                     </div>
-                    <h3>Alert System</h3>
-                    <p>Get notified about pests, diseases, watering needs, and optimal harvest times.</p>
+                    <h3>ඇඟවීම් පද්ධතිය</h3>
+                    <p>පළිබෝධ, රෝග, ජලයීමේ අවශ්‍යතා සහ ප්‍රශස්ත අස්වනු කාලයන් පිළිබඳව දැනුවත් කරන්න.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
                         <i class="fas fa-mobile-alt"></i>
                     </div>
-                    <h3>Mobile Responsive</h3>
-                    <p>Access your farm management dashboard from any device, anywhere.</p>
+                    <h3>ජංගම ප්‍රතිචාරය</h3>
+                    <p>ඕනෑම උපාංගයකින්, ඕනෑම තැනක සිට ඔබේ ගොවිපල කළමනාකරණ පුවරුවට ප්‍රවේශය ලබා ගන්න.</p>
                 </div>
             </div>
         </div>
@@ -796,35 +796,35 @@
     <div class="login-panel" id="loginPanel">
         <div class="login-container">
             <button class="close-login" id="closeLogin">&times;</button>
-            <h2 id="loginTitle">Welcome Back</h2>
+            <h2 id="loginTitle">පිවිසෙන්න</h2>
             <div class="alert" id="loginAlert"></div>
             <form id="loginForm">
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+                    <label for="email">විද්‍යුත් තැපෑල</label>
+                    <input type="email" id="email" class="form-control" placeholder="ඔබගේ විද්‍යුත් තැපෑල ඇතුළත් කරන්න" required>
                 </div>
                 <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+                    <label for="password">මුරපදය</label>
+                    <input type="password" id="password" class="form-control" placeholder="ඔබගේ මුරපදය ඇතුළත් කරන්න" required>
                 </div>
                 <div class="login-options">
                     <div class="remember-me">
                         <input type="checkbox" id="remember">
-                        <label for="remember">Remember me</label>
+                        <label for="remember">මතක තබා ගන්න</label>
                     </div>
-                    <a href="#" class="forgot-password">Forgot password?</a>
+                    <a href="#" class="forgot-password">මුරපදය අමතක වුණාද?</a>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LefxhssAAAAAM29DqBN633Ig9825th3oKOEqx3R"></div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;" id="loginSubmit">Log In</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="loginSubmit">පිවිසෙන්න</button>
             </form>
             <div class="divider">
-                <span>or</span>
+                <span>හෝ</span>
             </div>
             <button class="btn btn-google" style="width: 100%;" id="googleLogin">
-                <i class="fab fa-google"></i> Continue with Google
+                <i class="fab fa-google"></i> Google සමඟ ඉදිරියට
             </button>
             <div style="text-align: center; margin-top: 20px;">
-                <p>Don't have an account? <a href="#" id="switchToSignup" style="color: var(--primary-color);">Sign up</a></p>
+                <p>ගිණුමක් නොමැතිද? <a href="#" id="switchToSignup" style="color: var(--primary-color);">ලියාපදිංචි වන්න</a></p>
             </div>
         </div>
     </div>
@@ -833,36 +833,36 @@
     <div class="login-panel" id="signupPanel">
         <div class="login-container">
             <button class="close-login" id="closeSignup">&times;</button>
-            <h2>Create Account</h2>
+            <h2>ගිණුමක් තනන්න</h2>
             <div class="alert" id="signupAlert"></div>
             <form id="signupForm">
                 <div class="form-group">
-                    <label for="signupName">Full Name</label>
-                    <input type="text" id="signupName" class="form-control" placeholder="Enter your full name" required>
+                    <label for="signupName">සම්පූර්ණ නම</label>
+                    <input type="text" id="signupName" class="form-control" placeholder="ඔබගේ සම්පූර්ණ නම ඇතුළත් කරන්න" required>
                 </div>
                 <div class="form-group">
-                    <label for="signupEmail">Email</label>
-                    <input type="email" id="signupEmail" class="form-control" placeholder="Enter your email" required>
+                    <label for="signupEmail">විද්‍යුත් තැපෑල</label>
+                    <input type="email" id="signupEmail" class="form-control" placeholder="ඔබගේ විද්‍යුත් තැපෑල ඇතුළත් කරන්න" required>
                 </div>
                 <div class="form-group">
-                    <label for="signupPassword">Password</label>
-                    <input type="password" id="signupPassword" class="form-control" placeholder="Create a password" required>
+                    <label for="signupPassword">මුරපදය</label>
+                    <input type="password" id="signupPassword" class="form-control" placeholder="මුරපදයක් තනන්න" required>
                 </div>
                 <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                    <label for="confirmPassword">මුරපදය තහවුරු කරන්න</label>
+                    <input type="password" id="confirmPassword" class="form-control" placeholder="මුරපදය තහවුරු කරන්න" required>
                 </div>
                 <div class="g-recaptcha" data-sitekey="6LefxhssAAAAAM29DqBN633Ig9825th3oKOEqx3R"></div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;" id="signupSubmit">Sign Up</button>
+                <button type="submit" class="btn btn-primary" style="width: 100%;" id="signupSubmit">ලියාපදිංචි වන්න</button>
             </form>
             <div class="divider">
-                <span>or</span>
+                <span>හෝ</span>
             </div>
             <button class="btn btn-google" style="width: 100%;" id="googleSignup">
-                <i class="fab fa-google"></i> Continue with Google
+                <i class="fab fa-google"></i> Google සමඟ ඉදිරියට
             </button>
             <div style="text-align: center; margin-top: 20px;">
-                <p>Already have an account? <a href="#" id="switchToLogin" style="color: var(--primary-color);">Log in</a></p>
+                <p>දැනටමත් ගිණුමක් තිබේද? <a href="#" id="switchToLogin" style="color: var(--primary-color);">පිවිසෙන්න</a></p>
             </div>
         </div>
     </div>
@@ -871,19 +871,19 @@
     <section class="profile-setup" id="profileSetup">
         <div class="container">
             <div class="setup-container">
-                <h2>Complete Your Profile</h2>
+                <h2>ඔබගේ පැතිකඩ සම්පූර්ණ කරන්න</h2>
                 <div class="setup-steps">
                     <div class="step active" id="step1">
                         <div class="step-number">1</div>
-                        <div class="step-label">Personal Info</div>
+                        <div class="step-label">පුද්ගලික තොරතුරු</div>
                     </div>
                     <div class="step" id="step2">
                         <div class="step-number">2</div>
-                        <div class="step-label">Farm Details</div>
+                        <div class="step-label">ගොවිපල විස්තර</div>
                     </div>
                     <div class="step" id="step3">
                         <div class="step-number">3</div>
-                        <div class="step-label">Crops & Preferences</div>
+                        <div class="step-label">බෝග සහ මනාප</div>
                     </div>
                 </div>
                 
@@ -891,100 +891,108 @@
                     <!-- Step 1: Personal Information -->
                     <div class="setup-form active" id="formStep1">
                         <div class="form-group">
-                            <label for="fullName">Full Name</label>
+                            <label for="fullName">සම්පූර්ණ නම</label>
                             <input type="text" id="fullName" class="form-control" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="phone">Phone Number</label>
+                                <label for="phone">දුරකථන අංකය</label>
                                 <input type="tel" id="phone" class="form-control" required>
                             </div>
                             <div class="form-group">
-                                <label for="location">Location</label>
-                                <input type="text" id="location" class="form-control" placeholder="City, Country" required>
+                                <label for="location">ප්‍රදේශය</label>
+                                <select id="location" class="form-control" required>
+                                    <option value="">ප්‍රදේශය තෝරන්න</option>
+                                    <option value="අනුරාධපුර, උතුරු මැද පළාත">අනුරාධපුර, උතුරු මැද පළාත</option>
+                                    <option value="පොළොන්නරුව, උතුරු මැද පළාත">පොළොන්නරුව, උතුරු මැද පළාත</option>
+                                    <option value="කුරුණෑගල, වයඹ පළාත">කුරුණෑගල, වයඹ පළාත</option>
+                                    <option value="පුත්තලම, වයඹ පළාත">පුත්තලම, වයඹ පළාත</option>
+                                    <option value="මහනුවර, මැද පළාත">මහනුවර, මැද පළාත</option>
+                                    <option value="නුවරඑළිය, මැද පළාත">නුවරඑළිය, මැද පළාත</option>
+                                </select>
                             </div>
                         </div>
                         <div class="setup-buttons">
-                            <div></div> <!-- Empty div for spacing -->
-                            <button type="button" class="btn btn-primary" id="nextStep1">Next</button>
+                            <div></div>
+                            <button type="button" class="btn btn-primary" id="nextStep1">ඊළඟ</button>
                         </div>
                     </div>
                     
                     <!-- Step 2: Farm Details -->
                     <div class="setup-form" id="formStep2">
                         <div class="form-group">
-                            <label for="farmName">Farm Name</label>
+                            <label for="farmName">ගොවිපලේ නම</label>
                             <input type="text" id="farmName" class="form-control" required>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="farmSize">Farm Size (hectares)</label>
+                                <label for="farmSize">ගොවිපලේ ප්‍රමාණය (හෙක්ටයාර)</label>
                                 <input type="number" id="farmSize" class="form-control" min="0.1" step="0.1" required>
                             </div>
                             <div class="form-group">
-                                <label for="soilType">Soil Type</label>
+                                <label for="soilType">මඩ වර්ගය</label>
                                 <select id="soilType" class="form-control" required>
-                                    <option value="">Select soil type</option>
-                                    <option value="clay">Clay</option>
-                                    <option value="sandy">Sandy</option>
-                                    <option value="loamy">Loamy</option>
-                                    <option value="silt">Silt</option>
-                                    <option value="peat">Peat</option>
-                                    <option value="chalky">Chalky</option>
+                                    <option value="">මඩ වර්ගය තෝරන්න</option>
+                                    <option value="අළු">අළු</option>
+                                    <option value="වැලි">වැලි</option>
+                                    <option value="පාංශු">පාංශු</option>
+                                    <option value="ඉස්මුණ">ඉස්මුණ</option>
+                                    <option value="පීට්">පීට්</option>
+                                    <option value="චෝක්">චෝක්</option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="irrigation">Irrigation System</label>
+                            <label for="irrigation">ජලයීම් ක්‍රමය</label>
                             <select id="irrigation" class="form-control" required>
-                                <option value="">Select irrigation system</option>
-                                <option value="drip">Drip Irrigation</option>
-                                <option value="sprinkler">Sprinkler System</option>
-                                <option value="flood">Flood Irrigation</option>
-                                <option value="manual">Manual Watering</option>
+                                <option value="">ජලයීම් ක්‍රමය තෝරන්න</option>
+                                <option value="ඩ්‍රිප්">ඩ්‍රිප් ජලයීම</option>
+                                <option value="ස්ප්‍රින්ක්ලර්">ස්ප්‍රින්ක්ලර් ක්‍රමය</option>
+                                <option value="ගංවතුර">ගංවතුර ජලයීම</option>
+                                <option value="කළඹ">කළඹ ජලයීම</option>
                             </select>
                         </div>
                         <div class="setup-buttons">
-                            <button type="button" class="btn btn-outline" id="prevStep2">Previous</button>
-                            <button type="button" class="btn btn-primary" id="nextStep2">Next</button>
+                            <button type="button" class="btn btn-outline" id="prevStep2">පෙර</button>
+                            <button type="button" class="btn btn-primary" id="nextStep2">ඊළඟ</button>
                         </div>
                     </div>
                     
                     <!-- Step 3: Crops & Preferences -->
                     <div class="setup-form" id="formStep3">
                         <div class="form-group">
-                            <label for="crops">Main Crops Grown</label>
+                            <label for="crops">ප්‍රධාන බෝග</label>
                             <select id="crops" class="form-control" multiple required>
-                                <option value="corn">Corn</option>
-                                <option value="wheat">Wheat</option>
-                                <option value="rice">Rice</option>
-                                <option value="soybeans">Soybeans</option>
-                                <option value="tomatoes">Tomatoes</option>
-                                <option value="potatoes">Potatoes</option>
-                                <option value="cotton">Cotton</option>
-                                <option value="coffee">Coffee</option>
-                                <option value="sugarcane">Sugarcane</option>
-                                <option value="other">Other</option>
+                                <option value="බතල">බතල</option>
+                                <option value="වී">වී</option>
+                                <option value="තේ">තේ</option>
+                                <option value="රබර්">රබර්</option>
+                                <option value="කොකෝ">කොකෝ</option>
+                                <option value="අල">අල</option>
+                                <option value="තක්කාලි">තක්කාලි</option>
+                                <option value="බඩ ඉරිඟු">බඩ ඉරිඟු</option>
+                                <option value="කැනිස්ටර්">කැනිස්ටර්</option>
+                                <option value="වට්ටක්කා">වට්ටක්කා</option>
                             </select>
-                            <small>Hold Ctrl/Cmd to select multiple crops</small>
+                            <small>CTRL/Cmd ඔබා බහු බෝග තෝරන්න</small>
                         </div>
                         <div class="form-group">
-                            <label for="farmingType">Farming Type</label>
+                            <label for="farmingType">ගොවිතැන් වර්ගය</label>
                             <select id="farmingType" class="form-control" required>
-                                <option value="">Select farming type</option>
-                                <option value="organic">Organic Farming</option>
-                                <option value="conventional">Conventional Farming</option>
-                                <option value="mixed">Mixed Farming</option>
-                                <option value="hydroponics">Hydroponics</option>
+                                <option value="">ගොවිතැන් වර්ගය තෝරන්න</option>
+                                <option value="කාබනික">කාබනික ගොවිතැන</option>
+                                <option value="සාම්ප්‍රදායික">සාම්ප්‍රදායික ගොවිතැන</option>
+                                <option value="මිශ්‍ර">මිශ්‍ර ගොවිතැන</option>
+                                <option value="හයිඩ්‍රොපොනික්ස්">හයිඩ්‍රොපොනික්ස්</option>
                             </select>
                         </div>
                         <div class="form-group">
-                            <label for="experience">Years of Farming Experience</label>
+                            <label for="experience">ගොවිතැනේ අත්දැකීම් වර්ෂ</label>
                             <input type="number" id="experience" class="form-control" min="0" max="80" required>
                         </div>
                         <div class="setup-buttons">
-                            <button type="button" class="btn btn-outline" id="prevStep3">Previous</button>
-                            <button type="submit" class="btn btn-primary" id="completeSetup">Complete Setup</button>
+                            <button type="button" class="btn btn-outline" id="prevStep3">පෙර</button>
+                            <button type="submit" class="btn btn-primary" id="completeSetup">සම්පූර්ණ කරන්න</button>
                         </div>
                     </div>
                 </form>
@@ -997,26 +1005,26 @@
         <div class="container">
             <div class="dashboard-header">
                 <div class="dashboard-title">
-                    <h2 id="dashboardGreeting">My Farm Dashboard</h2>
-                    <p id="dashboardDate">Welcome back! Here's your farm overview.</p>
+                    <h2 id="dashboardGreeting">මගේ ගොවිපල පුවරුව</h2>
+                    <p id="dashboardDate">පිළිගනිමු! ඔබේ ගොවිපල දළ විශ්ලේෂණය මෙහි දක්වා ඇත.</p>
                 </div>
                 <div class="dashboard-actions">
                     <button class="btn btn-primary" id="addCropBtn">
-                        <i class="fas fa-plus"></i> Add New Crop
+                        <i class="fas fa-plus"></i> නව බෝගයක් එක් කරන්න
                     </button>
                 </div>
             </div>
 
             <div class="dashboard-grid">
                 <div class="dashboard-card">
-                    <h3><i class="fas fa-seedling"></i> My Crops</h3>
+                    <h3><i class="fas fa-seedling"></i> මගේ බෝග</h3>
                     <ul class="crop-list" id="cropList">
                         <!-- Crops will be loaded dynamically -->
                     </ul>
                 </div>
 
                 <div class="dashboard-card">
-                    <h3><i class="fas fa-tint"></i> Watering Schedule</h3>
+                    <h3><i class="fas fa-tint"></i> ජලයීමේ කාලසටහන</h3>
                     <div id="wateringSchedule">
                         <!-- Schedule will be loaded dynamically -->
                     </div>
@@ -1024,10 +1032,10 @@
 
                 <div class="weather-card">
                     <div class="weather-header">
-                        <h3><i class="fas fa-cloud-sun"></i> Weather Today</h3>
+                        <h3><i class="fas fa-cloud-sun"></i> අද කාලගුණය</h3>
                         <div class="weather-temp" id="weatherTemp">--°C</div>
                     </div>
-                    <p id="weatherDesc">Loading weather data...</p>
+                    <p id="weatherDesc">කාලගුණික දත්ත ලබා ගනිමින්...</p>
                     <div class="weather-details">
                         <div class="weather-detail">
                             <i class="fas fa-wind"></i>
@@ -1035,35 +1043,41 @@
                         </div>
                         <div class="weather-detail">
                             <i class="fas fa-tint"></i>
-                            <span id="humidity">--% Humidity</span>
+                            <span id="humidity">--% ආර්ද්‍රතාවය</span>
                         </div>
                         <div class="weather-detail">
                             <i class="fas fa-sun"></i>
-                            <span id="uvIndex">UV Index: --</span>
+                            <span id="uvIndex">UV දර්ශකය: --</span>
                         </div>
                         <div class="weather-detail">
                             <i class="fas fa-cloud-rain"></i>
-                            <span id="rainChance">--% Rain</span>
+                            <span id="rainChance">--% වර්ෂාපතනය</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>වත්මන් ඍතුව:</span>
+                            <span class="season-badge maha-season" id="currentSeason">මහ ඍතුව</span>
                         </div>
                     </div>
                 </div>
 
                 <div class="dashboard-card">
-                    <h3><i class="fas fa-robot"></i> AI Recommendations</h3>
+                    <h3><i class="fas fa-robot"></i> AI යෝජනා</h3>
                     <div id="aiRecommendations">
                         <!-- AI recommendations will be loaded dynamically -->
                     </div>
                 </div>
 
                 <div class="dashboard-card">
-                    <h3><i class="fas fa-bell"></i> Alerts & Warnings</h3>
+                    <h3><i class="fas fa-bell"></i> ඇඟවීම් සහ අනතුරු ඇඟවීම්</h3>
                     <div id="alertsContainer">
                         <!-- Alerts will be loaded dynamically -->
                     </div>
                 </div>
 
                 <div class="dashboard-card">
-                    <h3><i class="fas fa-chart-bar"></i> Yield Forecast</h3>
+                    <h3><i class="fas fa-chart-bar"></i> අස්වනු පුරෝකථනය</h3>
                     <div id="yieldForecast">
                         <!-- Yield forecast will be loaded dynamically -->
                     </div>
@@ -1078,37 +1092,37 @@
             <div class="footer-content">
                 <div class="footer-column">
                     <h3>AgriSmart</h3>
-                    <p>Transforming agriculture through technology and data-driven insights for sustainable farming.</p>
+                    <p>කෘෂිකර්මාන්තය පරිවර්තනය කිරීම තාක්ෂණය සහ දත්ත-බලගත් තීරු හරහා තිරසාර ගොවිතැන සඳහා.</p>
                 </div>
                 <div class="footer-column">
-                    <h3>Quick Links</h3>
+                    <h3>ඉක්මන් සබැඳි</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Features</a></li>
-                        <li><a href="#">How It Works</a></li>
-                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">මුල් පිටුව</a></li>
+                        <li><a href="#">විශේෂාංග</a></li>
+                        <li><a href="#">එය ක්‍රියා කරන ආකාරය</a></li>
+                        <li><a href="#">මිල ගණන්</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Resources</h3>
+                    <h3>සම්පත්</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Blog</a></li>
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">Support</a></li>
-                        <li><a href="#">Community</a></li>
+                        <li><a href="#">බ්ලොග්</a></li>
+                        <li><a href="#">ප්‍රලේඛන</a></li>
+                        <li><a href="#">සහාය</a></li>
+                        <li><a href="#">සමාජය</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Contact Us</h3>
+                    <h3>අප අමතන්න</h3>
                     <ul class="footer-links">
                         <li><a href="#"><i class="fas fa-envelope"></i> info@agrismart.com</a></li>
-                        <li><a href="#"><i class="fas fa-phone"></i> +1 (555) 123-4567</a></li>
-                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 Farm Tech Ave</a></li>
+                        <li><a href="#"><i class="fas fa-phone"></i> +94 77 123 4567</a></li>
+                        <li><a href="#"><i class="fas fa-map-marker-alt"></i> 123 ගොවි තාක්ෂණ වීදිය</a></li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                <p>&copy; 2023 AgriSmart. All rights reserved.</p>
+                <p>&copy; 2024 AgriSmart. සියලුම හිමිකම් ඇවිරිණි.</p>
             </div>
         </div>
     </footer>
@@ -1135,6 +1149,70 @@
             URL: 'https://endpoint.apilageai.lk/api/chat',
             KEY: 'apk_uwNTUYF4MADr8MLSX0xzKgMFbW6i2Pfb',
             MODEL: 'PRO'
+        };
+
+        // Sri Lankan Seasons Data
+        const sriLankanSeasons = {
+            maha: {
+                name: "මහ ඍතුව",
+                period: "ඔක්තෝබර් - පෙබරවාරි",
+                current: true, // This would be calculated based on current date
+                crops: ["වී", "බඩ ඉරිඟු", "සෝයා", "එළවළු"],
+                regions: "සියලුම ප්‍රදේශ, ප්‍රධාන වගා ඍතුව"
+            },
+            yala: {
+                name: "යල ඍතුව",
+                period: "මැයි - අගෝස්තු",
+                current: false,
+                crops: ["වී", "බඩ ඉරිඟු", "එළවළු"],
+                regions: "ප්‍රධාන වශයෙන් තෙත් කලාපය සහ ජලයීම් ප්‍රදේශ"
+            }
+        };
+
+        // Sri Lankan Weather Data by Province
+        const sriLankaWeather = {
+            "අනුරාධපුර, උතුරු මැද පළාත": {
+                temp: 32,
+                condition: "වැහි සුලු",
+                humidity: 65,
+                rainfall: "25mm අපේක්ෂිතය",
+                wind: "18 km/h"
+            },
+            "පොළොන්නරුව, උතුරු මැද පළාත": {
+                temp: 31,
+                condition: "වලාකුළු සහිත",
+                humidity: 68,
+                rainfall: "20mm අපේක්ෂිතය",
+                wind: "15 km/h"
+            },
+            "කුරුණෑගල, වයඹ පළාත": {
+                temp: 29,
+                condition: "වැහි සුලු",
+                humidity: 75,
+                rainfall: "30mm අපේක්ෂිතය", 
+                wind: "12 km/h"
+            },
+            "පුත්තලම, වයඹ පළාත": {
+                temp: 30,
+                condition: "වැහි සුලු",
+                humidity: 72,
+                rainfall: "28mm අපේක්ෂිතය",
+                wind: "20 km/h"
+            },
+            "මහනුවර, මැද පළාත": {
+                temp: 24,
+                condition: "වැහි සුලු",
+                humidity: 78,
+                rainfall: "35mm අපේක්ෂිතය",
+                wind: "10 km/h"
+            },
+            "නුවරඑළිය, මැද පළාත": {
+                temp: 16,
+                condition: "තද සිසිල්",
+                humidity: 85,
+                rainfall: "40mm අපේක්ෂිතය",
+                wind: "8 km/h"
+            }
         };
 
         // DOM Elements
@@ -1225,7 +1303,7 @@
             const email = document.getElementById('email').value;
             const password = document.getElementById('password').value;
             
-            showAlert(loginAlert, 'Logging in...', 'success');
+            showAlert(loginAlert, 'පිවිසෙමින්...', 'success');
             
             auth.signInWithEmailAndPassword(email, password)
                 .then((userCredential) => {
@@ -1248,11 +1326,11 @@
             const confirmPassword = document.getElementById('confirmPassword').value;
             
             if (password !== confirmPassword) {
-                showAlert(signupAlert, 'Passwords do not match', 'error');
+                showAlert(signupAlert, 'මුරපද ගැලපෙන්නේ නැත', 'error');
                 return;
             }
             
-            showAlert(signupAlert, 'Creating account...', 'success');
+            showAlert(signupAlert, 'ගිණුම සෑදෙමින්...', 'success');
             
             auth.createUserWithEmailAndPassword(email, password)
                 .then((userCredential) => {
@@ -1367,18 +1445,18 @@
                     loadDashboardData();
                 })
                 .catch((error) => {
-                    alert('Error saving profile: ' + error.message);
+                    alert('පැතිකඩ සුරැකීමේ දෝෂය: ' + error.message);
                 });
         });
 
         // Add Crop Button
         addCropBtn.addEventListener('click', () => {
-            const cropName = prompt('Enter crop name:');
+            const cropName = prompt('බෝගයේ නම ඇතුළත් කරන්න:');
             if (cropName) {
                 const cropData = {
                     name: cropName,
                     plantingDate: new Date().toISOString().split('T')[0],
-                    status: 'Growing',
+                    status: 'වගා කරමින්',
                     id: Date.now().toString()
                 };
                 
@@ -1388,7 +1466,7 @@
                         loadCrops();
                     })
                     .catch((error) => {
-                        alert('Error adding crop: ' + error.message);
+                        alert('බෝගය එකතු කිරීමේ දෝෂය: ' + error.message);
                     });
             }
         });
@@ -1424,7 +1502,7 @@
             } else if (userProfile && userProfile.personal) {
                 userAvatar.textContent = userProfile.personal.name.charAt(0).toUpperCase();
             } else {
-                userAvatar.textContent = 'U';
+                userAvatar.textContent = 'ප';
             }
         }
 
@@ -1480,7 +1558,7 @@
                         }
                     })
                     .catch((error) => {
-                        console.error('Error getting user profile:', error);
+                        console.error('පරිශීලක පැතිකඩ ලබා ගැනීමේ දෝෂය:', error);
                     });
             }
         }
@@ -1489,24 +1567,77 @@
             // Update greeting
             const greeting = document.getElementById('dashboardGreeting');
             if (userProfile && userProfile.personal) {
-                greeting.textContent = `Welcome, ${userProfile.personal.name}`;
+                greeting.textContent = `${userProfile.personal.name} සාදරයෙන් පිළිගනිමු`;
             } else {
-                greeting.textContent = 'My Farm Dashboard';
+                greeting.textContent = 'මගේ ගොවිපල පුවරුව';
             }
             
             // Update date
             const dateElement = document.getElementById('dashboardDate');
             const now = new Date();
-            dateElement.textContent = `Today is ${now.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
+            dateElement.textContent = `අද ${now.toLocaleDateString('si-LK', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}`;
             
             // Load crops
             loadCrops();
             
-            // Load weather
-            fetchWeatherData();
+            // Load weather based on user's location
+            loadWeatherData();
             
             // Load AI recommendations
             fetchAIRecommendations();
+            
+            // Set current season
+            setCurrentSeason();
+        }
+
+        function loadWeatherData() {
+            if (!userProfile || !userProfile.personal) return;
+            
+            const userLocation = userProfile.personal.location;
+            const weatherData = sriLankaWeather[userLocation];
+            
+            if (weatherData) {
+                document.getElementById('weatherTemp').textContent = `${weatherData.temp}°C`;
+                document.getElementById('weatherDesc').textContent = weatherData.condition;
+                document.getElementById('windSpeed').textContent = `${weatherData.wind}`;
+                document.getElementById('humidity').textContent = `${weatherData.humidity}% ආර්ද්‍රතාවය`;
+                document.getElementById('rainChance').textContent = `${weatherData.rainfall}`;
+                
+                // For UV index, we'll use a placeholder
+                document.getElementById('uvIndex').textContent = `UV දර්ශකය: ${Math.floor(Math.random() * 5) + 5}`;
+            }
+        }
+
+        function setCurrentSeason() {
+            const currentMonth = new Date().getMonth() + 1;
+            let currentSeason;
+            
+            // Determine current season based on month
+            if (currentMonth >= 10 || currentMonth <= 2) {
+                currentSeason = sriLankanSeasons.maha;
+            } else if (currentMonth >= 5 && currentMonth <= 8) {
+                currentSeason = sriLankanSeasons.yala;
+            } else {
+                // Intermediate season
+                currentSeason = {
+                    name: "අතරමැදි ඍතුව",
+                    period: "මාර්තු-අප්‍රේල් හෝ සැප්තැම්බර්",
+                    current: true
+                };
+            }
+            
+            const seasonElement = document.getElementById('currentSeason');
+            seasonElement.textContent = currentSeason.name;
+            
+            // Set appropriate class based on season
+            if (currentSeason.name === "මහ ඍතුව") {
+                seasonElement.className = "season-badge maha-season";
+            } else if (currentSeason.name === "යල ඍතුව") {
+                seasonElement.className = "season-badge yala-season";
+            } else {
+                seasonElement.className = "season-badge";
+                seasonElement.style.background = "#FFA726";
+            }
         }
 
         function loadCrops() {
@@ -1515,7 +1646,7 @@
             
             // Clear existing content
             cropList.innerHTML = '';
-            wateringSchedule.innerHTML = '<p>No crops added yet.</p>';
+            wateringSchedule.innerHTML = '<p>තවම බෝග එකතු කර නැත.</p>';
             
             if (!currentUser) return;
             
@@ -1524,8 +1655,8 @@
                 .get()
                 .then((querySnapshot) => {
                     if (querySnapshot.empty) {
-                        cropList.innerHTML = '<li>No crops added yet.</li>';
-                        wateringSchedule.innerHTML = '<p>No crops added yet.</p>';
+                        cropList.innerHTML = '<li>තවම බෝග එකතු කර නැත.</li>';
+                        wateringSchedule.innerHTML = '<p>තවම බෝග එකතු කර නැත.</p>';
                         return;
                     }
                     
@@ -1545,46 +1676,22 @@
                         scheduleItem.className = 'schedule-item';
                         scheduleItem.innerHTML = `
                             <div class="schedule-time">${getRandomTime()}</div>
-                            <div>${crop.name} - ${userProfile ? userProfile.farm.irrigation : 'Irrigation'}</div>
+                            <div>${crop.name} - ${userProfile ? userProfile.farm.irrigation : 'ජලයීම'}</div>
                         `;
                         wateringSchedule.appendChild(scheduleItem);
                     });
                 })
                 .catch((error) => {
-                    console.error('Error loading crops:', error);
+                    console.error('බෝග ලබා ගැනීමේ දෝෂය:', error);
                 });
         }
 
         function getRandomTime() {
             const hours = Math.floor(Math.random() * 12) + 6; // Between 6 AM and 5 PM
             const minutes = Math.floor(Math.random() * 60);
-            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const ampm = hours >= 12 ? 'ප.ව.' : 'පෙ.ව.';
             const displayHours = hours % 12 || 12;
             return `${displayHours}:${minutes.toString().padStart(2, '0')} ${ampm}`;
-        }
-
-        // Fetch Weather Data
-        async function fetchWeatherData() {
-            const apiKey = 'f39d29232d1e45abbbf92507252911';
-            // In a real app, you would get the user's location from their profile
-            const city = userProfile && userProfile.personal ? userProfile.personal.location.split(',')[0] : 'Colombo';
-            
-            try {
-                const response = await fetch(`https://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${city}&aqi=no`);
-                const data = await response.json();
-                
-                // Update weather card
-                document.getElementById('weatherTemp').textContent = `${Math.round(data.current.temp_c)}°C`;
-                document.getElementById('weatherDesc').textContent = data.current.condition.text;
-                document.getElementById('windSpeed').textContent = `${data.current.wind_kph} km/h`;
-                document.getElementById('humidity').textContent = `${data.current.humidity}% Humidity`;
-                document.getElementById('uvIndex').textContent = `UV Index: ${data.current.uv}`;
-                
-                // For rain chance, we'd need a forecast API, so we'll use a placeholder
-                document.getElementById('rainChance').textContent = `${Math.floor(Math.random() * 50)}% Rain`;
-            } catch (error) {
-                console.error('Error fetching weather data:', error);
-            }
         }
 
         // Fetch AI Recommendations
@@ -1597,18 +1704,19 @@
             const yieldForecast = document.getElementById('yieldForecast');
             
             if (!userProfile) {
-                recommendationsContainer.innerHTML = '<p>Complete your profile to get personalized recommendations.</p>';
+                recommendationsContainer.innerHTML = '<p>පුද්ගලීකරණය කළ යෝජනා ලබා ගැනීමට ඔබේ පැතිකඩ සම්පූර්ණ කරන්න.</p>';
                 return;
             }
             
-            // Mock recommendations based on user data
+            // Mock recommendations based on user data and current season
+            const currentSeason = document.getElementById('currentSeason').textContent;
             const mockRecommendations = [
-                `Based on your ${userProfile.farm.soilType} soil, consider adding organic matter to improve water retention.`,
-                `Your ${userProfile.farm.irrigation} system is efficient for ${userProfile.crops.mainCrops.join(', ')}.`,
-                `With ${userProfile.crops.experience} years of experience, you might try crop rotation to maintain soil health.`
+                `වත්මන් ${currentSeason} සඳහා ඔබේ ${userProfile.crops.mainCrops.join(', ')} බෝග සඳහා ජලයීම වැඩි කරන්න.`,
+                `${userProfile.farm.soilType} මඩ වර්ගය සඳහා කාබනික පොහොර භාවිතා කරන්න.`,
+                `${userProfile.farm.irrigation} ක්‍රමය ${currentSeason} ඍතුවේදී කාර්යක්ෂම වේ.`
             ];
             
-            recommendationsContainer.innerHTML = '<p>Based on current conditions, we recommend:</p><ul style="margin-top: 15px; padding-left: 20px;">';
+            recommendationsContainer.innerHTML = '<p>වත්මන් තත්වයන් මත පදනම්ව, අපි නිර්දේශ කරන්නේ:</p><ul style="margin-top: 15px; padding-left: 20px;">';
             mockRecommendations.forEach(rec => {
                 recommendationsContainer.innerHTML += `<li>${rec}</li>`;
             });
@@ -1617,19 +1725,20 @@
             // Mock alerts
             alertsContainer.innerHTML = `
                 <div style="background: #FFF3CD; color: #856404; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                    <strong>Weather Alert:</strong> Expected temperature drop in 3 days. Protect sensitive crops.
+                    <strong>කාලගුණික ඇඟවීම:</strong> ඉදිරි 48 පැය තුළ තද වර්ෂාපතනය අපේක්ෂිතය. පොහොර යෙදීම ප්‍රමාද කරන්න.
                 </div>
                 <div style="background: #D1ECF1; color: #0C5460; padding: 15px; border-radius: 8px; margin-top: 10px;">
-                    <strong>Irrigation:</strong> Next watering scheduled for tomorrow morning.
+                    <strong>ජලයීම:</strong> ඊළඟ ජලයීම හෙට උදේ සැලසුම් කර ඇත.
                 </div>
             `;
             
             // Mock yield forecast
             yieldForecast.innerHTML = `
-                <p>Based on current growth and conditions:</p>
+                <p>වත්මන් වර්ධනය සහ තත්වයන් මත පදනම්ව:</p>
                 <ul style="margin-top: 15px;">
-                    <li>${userProfile.crops.mainCrops[0] || 'Primary crop'}: Estimated ${(userProfile.farm.size * 2.5).toFixed(1)} tons</li>
-                    <li>Overall yield potential: Good</li>
+                    <li>${userProfile.crops.mainCrops[0] || 'ප්‍රධාන බෝගය'}: ඇස්තමේන්තුගත ${(userProfile.farm.size * 2.5).toFixed(1)} ටොන්</li>
+                    <li>සමස්ත අස්වනු විභවය: හොඳ</li>
+                    <li>${currentSeason} අස්වනුව: ඉහළ අපේක්ෂාවන්</li>
                 </ul>
             `;
         }
